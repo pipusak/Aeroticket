@@ -1,0 +1,22 @@
+<div [ngSwitch]="requestStatus" class="request-status">
+  <div class="row">
+    <!--OK response-->
+    <div *ngSwitchCase="getRequestStatusList().OK" class="col-xs-10 col-md-6">
+      <div class="alert alert-success">
+        <strong>Success!</strong> The request was successfully accepted.
+      </div>
+    </div>
+    <!--Error response-->
+    <div *ngSwitchCase="getRequestStatusList().ERROR" class="col-xs-10 col-md-6">
+      <div class="alert alert-danger">
+        <strong>Error!</strong> The was an error, while sending request.
+      </div>
+    </div>
+    <!--Pending request-->
+    <div *ngSwitchCase="getRequestStatusList().PENDING" class="col-xs-10 col-md-6">
+      <div class="alert alert-info">
+        <strong>Wait please...</strong> Your request is pending...
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<div *ngIf="destination">
+  <div id="main" class="container">
+    <h3 class="page-header">Edit destination</h3>
+    <form (ngSubmit)="updateDestination()">
+      <div class="row">
+        <div class="form-group col-md-4">
+          <label for="dest-name-form">Destination point name</label>
+          <input #dest type="text" class="form-control" id="dest-name-form" name="dest-name"
+                 [(ngModel)]="destination.name">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="dest-lat-form">Destination latitude</label>
+          <input type="text" class="form-control" id="dest-lat-form" name="dest-lat" [(ngModel)]="destination.latitude"/>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="dest-lon-form">Destination longitude</label>
+          <input type="text" class="form-control" id="dest-lon-form" name="dest-lon" [(ngModel)]="destination.longitude"/>
+        </div>
+      </div>
+      <hr/>
+      <div id="actions" class="row">
+        <div class="col-md-12">
+          <button type="submit" class="btn btn-primary">Save</button>
+          <a routerLink="/destination" class="btn btn-default">Back</a>
+        </div>
+      </div>
+    </form>
+    <request-status-notification [requestStatus]="requestStatus"></request-status-notification>
+  </div>
+</div>
+
+

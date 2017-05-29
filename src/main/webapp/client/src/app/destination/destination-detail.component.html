@@ -1,0 +1,28 @@
+<div *ngIf="destination">
+  <confirm-delete [targetItemId]="destination.id" (deleteRequest)="onDeleteRequest($event)"></confirm-delete>
+  <div id="main" class="container">
+    <h3 class="page-header">Review destination</h3>
+    <div class="row">
+      <div class="col-md-4">
+        <p><strong>Name</strong></p>
+        <p>{{destination.name}}</p>
+      </div>
+      <div class="col-md-4">
+        <p><strong>Latitude</strong></p>
+        <p>{{destination.latitude}}</p>
+      </div>
+      <div class="col-md-4">
+        <p><strong>Longitude</strong></p>
+        <p>{{destination.longitude}}</p>
+      </div>
+    </div>
+    <hr/>
+    <div id="actions" class="row">
+      <div class="col-md-12">
+        <a *ngIf="isUserAdmin()" [routerLink]="['/destination', destination.id, 'edit']" class="btn btn-primary">Edit</a>
+        <a [routerLink]="['/destination']" class="btn btn-default pull-right">Close</a>
+        <a *ngIf="isUserAdmin()" href="#" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>

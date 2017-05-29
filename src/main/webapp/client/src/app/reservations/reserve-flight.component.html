@@ -1,0 +1,43 @@
+<div id="main" class="container">
+  <h3 class="page-header">Reserve flight</h3>
+  <form (ngSubmit)="onSubmit(passengerType.value)" #flightForm="ngForm">
+    <div class="row">
+      <div class="form-group col-md-4">
+        <label for="passenger-type-form">Ticket type</label>
+        <select class="form-control" id="passenger-type-form" name="passenger-type" required #passengerType>
+          <option value="0">Baby</option>
+          <option value="1">Child</option>
+          <option value="2">Student</option>
+          <option value="3" selected>Adult</option>
+          <option value="4">Senior</option>
+        </select>
+      </div>
+    </div>
+    <fieldset *ngIf="targetFlight">
+      <legend>Flight details</legend>
+      <div class="row">
+        <div *ngIf="destFromName && destToName" class="col-md-4">
+          <p><strong>From - To</strong></p>
+          <p>{{destFromName}} - {{destToName}}</p>
+        </div>
+        <div class="col-md-4">
+          <p><strong>Departure date</strong></p>
+          <p>{{targetFlight.dateOfDeparture | date:"medium"}}</p>
+        </div>
+        <div class="col-md-4">
+          <p><strong>Price</strong></p>
+          <p>{{targetFlight.price | currency:'EUR':true}}</p>
+        </div>
+      </div>
+    </fieldset>
+    <hr/>
+    <div id="actions" class="row">
+      <div class="col-md-12">
+        <button type="submit" class="btn btn-primary">Reserve</button>
+        <a routerLink="/flight" class="btn btn-default">Back</a>
+      </div>
+    </div>
+  </form>
+
+  <request-status-notification [requestStatus]="requestStatus"></request-status-notification>
+</div>

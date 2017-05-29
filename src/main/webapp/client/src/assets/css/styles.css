@@ -1,0 +1,18 @@
+.load-notification {
+  text-align: center;
+  font-size: 200%;
+}
+
+/* Our icons are not visible by default */
+span.glyphicon-arrow-down, span.glyphicon-arrow-up {
+  display: none;
+}
+
+/* But we make them to be visible after we click on the <th> element, thus assigning .rt-sort-asc class to the sibling span element*/
+th.sort-asc > span.glyphicon-arrow-up {
+  display: inline-block;
+}
+
+th.sort-desc > span.glyphicon-arrow-down {
+  display: inline-block;
+}

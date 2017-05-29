@@ -1,0 +1,99 @@
+<div id="main" class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <div class="panel-login">
+        <div class="panel-heading">
+          <ul class="nav nav-tabs nav-justified">
+            <li class="active"><a data-toggle="tab" href="#login" id="login-form-link">Login</a></li>
+            <li><a data-toggle="tab" href="#register" id="register-form-link">Register</a></li>
+          </ul>
+        </div>
+
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="tab-content">
+                <div id="login" class="tab-pane fade in active">
+                  <form (ngSubmit)="onLoginSubmit(loginUsername.value, loginPassword.value)" id="login-form"
+                        method="post" role="form">
+                    <div class="form-group">
+                      <input type="text" name="username" tabindex="1" class="form-control"
+                             placeholder="Username" #loginUsername>
+                    </div>
+                    <div class="form-group">
+                      <input type="password" name="password" tabindex="2" class="form-control"
+                             placeholder="Password" #loginPassword>
+                    </div>
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3">
+                          <input type="submit" name="login-submit" id="login-submit" tabindex="3"
+                                 class="form-control btn btn-login">
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  <div *ngIf="loginError" class="row">
+                    <div class="col-lg-12">
+                      <div class="alert alert-danger">
+                        <strong>Error!</strong> {{loginError}}
+                      </div>
+                    </div>
+                  </div>
+                </div> <!-- /login -->
+
+                <div id="register" class="tab-pane fade">
+                  <form
+                    (ngSubmit)="onRegisterSubmit(registerUsername.value, registerFullName.value, registerEmail.value, registerPassword.value, registerBirthday.value)"
+                    id="register-form" method="post" role="form">
+                    <div class="form-group">
+                      <input type="text" name="username" tabindex="1" class="form-control"
+                             placeholder="Username" required #registerUsername>
+                    </div>
+                    <div class="form-group">
+                      <input type="text" name="full-name" tabindex="2" class="form-control"
+                             placeholder="Full Name" required #registerFullName>
+                    </div>
+                    <div class="form-group">
+                      <input type="date" name="birthday" tabindex="3" class="form-control"
+                             placeholder="Date of Birth" required #registerBirthday>
+                    </div>
+                    <div class="form-group">
+                      <input type="email" name="email" tabindex="4" class="form-control"
+                             placeholder="Email Address" required #registerEmail>
+                    </div>
+                    <div class="form-group">
+                      <input type="password" name="password" tabindex="5" class="form-control"
+                             placeholder="Password" required #registerPassword>
+                    </div>
+                    <div class="form-group">
+                      <input type="password" name="confirm-password" tabindex="6" class="form-control"
+                             placeholder="Confirm Password" required #registerConfirmPassword>
+                    </div>
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3">
+                          <input type="submit" name="register-submit" tabindex="7"
+                                 class="form-control btn btn-register" value="Register Now">
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  <div *ngIf="registrationError" class="row">
+                    <div class="col-lg-12">
+                      <div class="alert alert-danger">
+                        <strong>Error!</strong> {{registrationError}}
+                      </div>
+                    </div>
+                  </div>
+                </div> <!-- /register -->
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> <!-- /row -->
+
+</div>

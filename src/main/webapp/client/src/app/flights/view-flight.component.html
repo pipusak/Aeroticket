@@ -1,0 +1,50 @@
+<div *ngIf="flight">
+  <confirm-delete [targetItemId]="flight.id" (deleteRequest)="onDeleteRequest($event)"></confirm-delete>
+  <div id="main" class="container">
+    <h3 class="page-header">Review flight</h3>
+    <div class="row">
+      <div class="col-md-4">
+        <p><strong>ID</strong></p>
+        <p>{{flight.id}}</p>
+      </div>
+      <div class="col-md-4">
+        <p><strong>Name</strong></p>
+        <p>{{flight.name}}</p>
+      </div>
+      <div class="col-md-4">
+        <p><strong>Available seats</strong></p>
+        <p>{{flight.numberOfSeats}}</p>
+      </div>
+      <div class="col-md-4">
+        <p><strong>Price</strong></p>
+        <p>{{flight.price | currency:'EUR':true}}</p>
+      </div>
+    </div>
+    <fieldset>
+      <legend>Route details</legend>
+      <div class="row">
+        <div class="col-md-4">
+          <p><strong>From - To</strong></p>
+          <p>{{destFromName}} - {{destToName}}</p>
+        </div>
+        <div class="col-md-4">
+          <p><strong>Departure date</strong></p>
+          <p>{{flight.dateOfDeparture | date:"medium"}}</p>
+        </div>
+        <div class="col-md-4">
+          <p><strong>Distance</strong></p>
+          <p>{{flight.distance}} km</p>
+        </div>
+      </div>
+    </fieldset>
+    <hr/>
+    <div id="actions" class="row">
+      <div class="col-md-12">
+        <a *ngIf="isUserLoggedIn() && !isUserAdmin() && flight.numberOfSeats > 0" [routerLink]="['/reserve', flight.id]" class="btn btn-primary">Reserve</a>
+        <a *ngIf="isUserAdmin()" [routerLink]="['/flight', flight.id, 'edit']" class="btn btn-warning">Edit</a>
+        <a [routerLink]="['/flight']" class="btn btn-default pull-right">Close</a>
+        <a *ngIf="isUserAdmin()" href="#" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>

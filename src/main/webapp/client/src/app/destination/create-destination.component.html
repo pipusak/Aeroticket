@@ -1,0 +1,28 @@
+<div id="main" class="container">
+  <h3 class="page-header">Create new destination</h3>
+  <form (ngSubmit)="createDestination(destName.value, destLat.value, destLon.value)">
+    <div class="row">
+      <div class="form-group col-md-4">
+        <label for="dest-name-form">Destination point name</label>
+        <input #destName type="text" class="form-control" id="dest-name-form" required>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="dest-lat-form">Destination latitude</label>
+        <input #destLat type="text" class="form-control" id="dest-lat-form" required/>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="dest-lon-form">Destination longitude</label>
+        <input #destLon type="text" class="form-control" id="dest-lon-form" required/>
+      </div>
+    </div>
+    <hr/>
+    <div id="actions" class="row">
+      <div class="col-md-12">
+        <button type="submit" class="btn btn-primary">Create</button>
+        <a routerLink="/destination" class="btn btn-default">Back</a>
+      </div>
+    </div>
+  </form>
+
+  <request-status-notification [requestStatus]="requestStatus"></request-status-notification>
+</div>

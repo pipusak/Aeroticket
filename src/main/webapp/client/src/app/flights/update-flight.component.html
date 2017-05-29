@@ -1,0 +1,65 @@
+<div *ngIf="flight">
+  <div id="main" class="container">
+    <h3 class="page-header">Edit flight</h3>
+    <form (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="form-group col-md-4">
+          <label for="flight-id-form">Flight id</label>
+          <input type="text" class="form-control" name="id" id="flight-id-form" disabled [(ngModel)]="flight.id"/>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="flight-name-form">Flight number</label>
+          <input type="text" class="form-control" name="name" id="flight-name-form" required
+                 [(ngModel)]="flight.name"/>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="flight-seats-form">Total number of seats</label>
+          <input type="number" class="form-control" name="numberOfSeats" id="flight-seats-form" min="1" max="999"
+                 required [(ngModel)]="flight.numberOfSeats"/>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="flight-price-form">Total price (in $)</label>
+          <input type="number" class="form-control" name="price" id="flight-price-form" min="0" required
+                 [(ngModel)]="flight.price"/>
+        </div>
+      </div>
+      <fieldset>
+        <legend>Route details</legend>
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label for="flight-from-form">To</label>
+            <select class="form-control" name="to" id="flight-to-form" required [(ngModel)]="flight.to">
+              <option *ngFor="let dest of destinations" [value]="dest.id">{{dest.name}}</option>
+            </select>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="flight-to-form">From</label>
+            <select class="form-control" name="from" id="flight-from-form" required [(ngModel)]="flight.from">
+              <option *ngFor="let dest of destinations" [value]="dest.id">{{dest.name}}</option>
+            </select>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="flight-departure-form">Departure date</label>
+            <input type="datetime-local" class="form-control" name="dateOfDeparture" id="flight-departure-form"
+                   required [(ngModel)]="flight.dateOfDeparture"/>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="flight-distance-form">Total distance (in km)</label>
+            <input type="number" class="form-control" name="distance" id="flight-distance-form" min="100" step="any"
+                   [(ngModel)]="flight.distance"/>
+          </div>
+        </div>
+      </fieldset>
+      <hr/>
+      <div id="actions" class="row">
+        <div class="col-md-12">
+          <button type="submit" class="btn btn-primary">Update</button>
+          <a routerLink="/flight" class="btn btn-default">Back</a>
+        </div>
+      </div>
+    </form>
+    <request-status-notification [requestStatus]="requestStatus"></request-status-notification>
+  </div>
+</div>
+
+
