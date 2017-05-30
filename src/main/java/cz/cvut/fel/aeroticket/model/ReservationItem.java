@@ -44,11 +44,11 @@ public class ReservationItem implements Serializable {
     private Integer numberOfTickets;
 
     @ManyToOne
-    @JoinColumn(name = "FLIGHT_ID", nullable = false, referencedColumnName = "ID")
+    @JoinColumn(name = "FLIGHT_ID",  referencedColumnName = "ID")
     private Flight flight;
 
     @ManyToOne
-    @JoinColumn(name = "RESERVATION_ID", nullable = false, referencedColumnName = "ID")
+    @JoinColumn(name = "RESERVATION_ID", referencedColumnName = "ID")
     private Reservation reservation;
 
     public Long getId() {

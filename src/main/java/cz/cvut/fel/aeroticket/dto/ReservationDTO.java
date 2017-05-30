@@ -17,6 +17,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.Set;
 
 @XmlRootElement(name = "reservation")
@@ -33,7 +34,7 @@ public class ReservationDTO {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ")
     @ApiModelProperty(dataType = "java.lang.String", example = "yyyy-MM-dd'T'HH:mm:ss.SSSZ")
-    private ZonedDateTime created;
+    private Date created;
 
     private ReservationStatus reservationStatus;
 
@@ -60,11 +61,11 @@ public class ReservationDTO {
         this.client = client;
     }
 
-    public ZonedDateTime getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(ZonedDateTime created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 

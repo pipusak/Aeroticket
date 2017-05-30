@@ -8,11 +8,12 @@ import java.util.Set;
 @Entity
 @Table(name = "CLIENT")
 public class Client implements Serializable {
-    @GeneratedValue( strategy = GenerationType.IDENTITY)
+
 /*    @GeneratedValue(generator = "CLIENT_SEQ", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "CLIENT_SEQ", sequenceName = "CLIENT_SEQ", allocationSize = 1)*/
     @Id
     @Column(name = "ID")
+    @GeneratedValue( strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "EMAIL", nullable = false, unique = true)

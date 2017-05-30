@@ -14,6 +14,7 @@ import cz.cvut.fel.aeroticket.reservation.ReservationStatus;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -38,7 +39,7 @@ public class ReservationServiceImpl extends BaseEntityService<Reservation, Reser
     @Override
     public ReservationDTO save(ReservationDTO instance) {
         Reservation model = dtoToEntityConverter.convert(instance);
-        model.setCreated(ZonedDateTime.now());
+        model.setCreated(new Date());
         model.setReservationStatus(ReservationStatus.NEW);
         Optional<Client> client = clientRepository.find(instance.getClient());
         if (client.isPresent()) {
