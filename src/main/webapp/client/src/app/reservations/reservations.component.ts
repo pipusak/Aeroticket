@@ -2,29 +2,38 @@ import {Component, OnInit} from "@angular/core";
 import {Reservation} from "./reservation";
 import {ReservationsService} from "./reservations.service";
 import {FlightService} from "../flights/flights.service";
+import {ListRequest} from "../model/list-request";
 import {SortDirection} from "../model/sort-direction";
 @Component({
-  templateUrl: 'reservations.component.html',
-  selector: 'reservations'
+  selector: 'reservations',
+  templateUrl: 'reservations.component.html'
 })
 export class ReservationsComponent implements OnInit {
 
   reservations: Reservation[];
 
-  constructor(private reservationService: ReservationsService, private flightService: FlightService) {
+  totalPageCount: number;
+
+  private request: ListRequest = {
+    sorting: {
+      fieldName: 'id',
+      direction: SortDirection.Asc
+    },
+    pageNumber: 0
+  };
+
+  constructor(private reservationService: ReservationsService) {
   }
 
   ngOnInit(): void {
+
     this.updateReservations();
   }
 
   private updateReservations() {
-    let flightsRequest = {
-      sorting: {
-        fieldName: 'id',
-        direction: SortDirection.Asc
-      },
-      pageNumber: -1
-    };
-  }
+    this.reservationService.getReservationsList(this.request).then(response => {
+      this.totalPageCount=response.pageCount;
+     this.reservations = response.reservations;
+    });
+}
 }

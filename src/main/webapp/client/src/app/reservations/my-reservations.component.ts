@@ -13,37 +13,36 @@ export class MyReservationsComponent implements OnInit {
 
   private reservations: Reservation[];
 
+  totalPageCount: number;
+
   constructor(private reservationService: ReservationsService, private authService: AuthenticationService,
               private flightService: FlightService, private destinationService: DestinationService) {
   }
+
 
   ngOnInit() {
     this.updateReservationsList();
   }
 
   private updateReservationsList() {
+
+    let userId = this.authService.getUserId();
     let reservationRequest = {
       sorting: {
         fieldName: 'id',
         direction: SortDirection.Asc
       },
-      pageNumber: -1
+      pageNumber: 0
     };
-    let userId = this.authService.getUserId();
 
-    this.reservationService.getReservationsList(reservationRequest).then(reservations => {
-      this.processReservationsList(reservations, userId);
+
+    this.reservationService.getReservationsList(reservationRequest).then(response => {
+      this.reservations=response.reservations;
     });
   }
 
-  private processReservationsList(reservations: Reservation[], userId: number) {
-    for (let i = 0, n = reservations.length; i < n; i++) {
-      let reservation = reservations[i];
-      if (userId === reservation.client) {
-        this.reservations.push(reservation);
-      }
-    }
-  }
+
+
 
   getFlightRouteString(flightId: number): Promise<string> {
     return this.flightService.getFlight(flightId).then(flight => {

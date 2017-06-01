@@ -1,16 +1,22 @@
 <div id="main" class="container">
   <h3 class="page-header">Reserve flight</h3>
-  <form (ngSubmit)="onSubmit(passengerType.value)" #flightForm="ngForm">
+  <form (ngSubmit)="onSubmit(passengerType.value, numberoftickets.value)" #flightForm="ngForm">
     <div class="row">
       <div class="form-group col-md-4">
         <label for="passenger-type-form">Ticket type</label>
         <select class="form-control" id="passenger-type-form" name="passenger-type" required #passengerType>
-          <option value="0">Baby</option>
-          <option value="1">Child</option>
-          <option value="2">Student</option>
-          <option value="3" selected>Adult</option>
-          <option value="4">Senior</option>
+          <option value=0 >Baby</option>
+          <option value=1 >Child</option>
+          <option value=2 >Student</option>
+          <option value=3 selected>Adult</option>
+          <option value=4 >Senior</option>
         </select>
+      </div>
+    </div>
+      <div class="row">
+      <div class="form-group col-md-2">
+        <label for="number-of-tickets-form">Number of ticket</label>
+        <input type="number" class="form-control" id="number-of-tickets-form" name="number-of-tickets" value=1 required #numberoftickets >
       </div>
     </div>
     <fieldset *ngIf="targetFlight">

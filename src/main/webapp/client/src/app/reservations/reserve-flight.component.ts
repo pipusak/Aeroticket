@@ -39,11 +39,24 @@ export class ReserveFlightComponent implements OnInit {
     return this.destinationService.getDestination(id).then(dest => dest.name);
   }
 
-  onSubmit(passengerType: number) {
+  onSubmit(passengerType: string,numberOfTickets: number) {
     this.requestStatus = RequestStatus.PENDING;
     let clientId = this.authService.getUserId();
 
-    this.reservationService.createReservation(clientId, passengerType, this.targetFlight.id).then(res => {
+    if(numberOfTickets<1){
+      try {
+        throw new RangeError(" Ticket number must be at least 1");
+      }
+      catch (err){
+        this.requestStatus = RequestStatus.ERROR;
+        this.requestError = err;
+        console.log(err);
+      }
+
+    }
+    console.log(passengerType)
+
+    this.reservationService.createReservation(clientId, passengerType, numberOfTickets, this.targetFlight.id).then(res => {
       this.requestStatus = RequestStatus.OK;
     }).catch(err => {
       this.requestStatus = RequestStatus.ERROR;

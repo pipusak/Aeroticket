@@ -6,6 +6,7 @@ import {URLSearchParams, RequestOptions, Http} from "@angular/http";
 import {SortDirection} from "../model/sort-direction";
 import {HeadersBuilder} from "../utils/headers-builder";
 import {serverAddress} from "../constants/server-address";
+import {ReservationListResponse} from "../model/reservation-list-response";
 
 @Injectable()
 export class ReservationsService {
@@ -15,7 +16,7 @@ export class ReservationsService {
   constructor(private http: Http) {
   }
 
-  getReservationsList(request: ListRequest = defaultListRequest, delay: number = 500): Promise<Reservation[]> {
+  getReservationsList(request: ListRequest = defaultListRequest, delay: number = 500): Promise<ReservationListResponse> {
 
     // Setting URL query string
     let params: URLSearchParams = new URLSearchParams();
@@ -35,7 +36,7 @@ export class ReservationsService {
 
     let options = new RequestOptions({headers: headers.build(), search: params});
     return this.http.get(`${serverAddress}${this.serverEndpoint}`, options).delay(delay).toPromise()
-      .then(response => response.json() as Reservation[])
+      .then(response => response.json() as ReservationListResponse)
       .catch(this.handleError);
   }
 
@@ -44,10 +45,10 @@ export class ReservationsService {
     return Promise.reject(error.message || error);
   }
 
-  createReservation(clientId: number, passengerType: number, flightId: number) {
+  createReservation(clientId: number, passengerType: string, numberOfTickets: number, flightId: number) {
     let headers = HeadersBuilder.newBuilder().build();
 
-    let reservationRequest = this.createReservationRequestObject(clientId, passengerType, flightId);
+    let reservationRequest = this.createReservationRequestObject(clientId, passengerType, numberOfTickets, flightId);
     let requestBody = JSON.stringify(reservationRequest);
 
     let requestOptions = new RequestOptions({headers: headers});
@@ -55,25 +56,26 @@ export class ReservationsService {
     return this.http.post(`${serverAddress}${this.serverEndpoint}`, requestBody, requestOptions).toPromise().catch(this.handleError);
   }
 
-  private createReservationRequestObject(clientId: number, passengerType: number, flightId: number): Object {
+  private createReservationRequestObject(clientId: number, passengerType: string, numberOfTickets: number, flightId: number): Object {
     let passenger;
     switch (passengerType) {
-      case 0:
+      case ('0'):
         passenger = 'BABY';
         break;
-      case 1:
+      case ('1'):
         passenger = 'CHILD';
         break;
-      case 2:
+      case ('2'):
         passenger = 'STUDENT';
         break;
-      case 3:
+      case ('3'):
         passenger = 'ADULT';
         break;
-      case 4:
+      case ('3'):
         passenger = 'SENIOR';
         break;
-    }
+
+          }
 
     let reservationRequestObject = {
       client: clientId,
@@ -81,7 +83,7 @@ export class ReservationsService {
       reservationItems: [
         {
           passengerType: passenger,
-          numberOfTickets: 1,
+          numberOfTickets: numberOfTickets,
           flight: flightId
         }
       ]
