@@ -1,11 +1,10 @@
 package cz.cvut.fel.aeroticket.model;
 
-import cz.cvut.fel.aeroticket.reservation.ReservationStatus;
+import cz.cvut.fel.aeroticket.model.reservation.ReservationStatus;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.Set;
 

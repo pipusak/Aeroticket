@@ -1,19 +1,26 @@
 import {Injectable} from "@angular/core";
-import {Http} from "@angular/http";
+import {Http, RequestOptions} from "@angular/http";
 import {UsersService} from "../users/users.service";
 import {User} from "../users/user";
+import {HeadersBuilder} from "../utils/headers-builder";
+import {serverAddress} from "../constants/server-address";
 
 @Injectable()
 export class AuthenticationService {
   // TODO: test this
   private loggedIn = false;
   private admin = false;
+  private serverEndpoint = '/authentification';
+  private role = "NONE";
+  private id;
+  private response;
+
 
   constructor(private http: Http, private userService: UsersService) {
 
     if (localStorage.getItem('cred')) {
       this.loggedIn = true;
-      if (localStorage.getItem('role') === 'admins') {
+      if (localStorage.getItem('role') === 'ADMIN') {
         this.admin = true;
       }
     }
@@ -36,45 +43,38 @@ export class AuthenticationService {
     return +localStorage.getItem('id');
   }
 
-  login(username: string, password: string): Promise<boolean> {
-    // let loginSuccessfull: Promise<boolean> = this.userService.getUsersList().then(userList => {
-    //   let user = this.findUserInList(userList, username, password);
-    //   if (user) {
-    //     this.loggedIn = true;
-    //     let credentials = btoa(`${username}:${password}`);
-    //     localStorage.setItem('cred', credentials);
-    //
-    //     this.admin = user.role === 'admins';
-    //     localStorage.setItem('role', user.role);
-    //     localStorage.setItem('id', user.id);
-    //
-    //     return true;
-    //   }
-    //
-    //   return false;
-    // }).catch(err => {
-    //   return false;
-    // });
-    //
-    // return loginSuccessfull;
-    localStorage.setItem('cred', 'asd');
-    localStorage.setItem('id', '1');
+  login(email: string, password: string): Promise<boolean> {
+
+
+    let headers = HeadersBuilder.newBuilder().build();
+
+    let authentificationRequest = {
+      email: email,
+      password: password
+    }
+    let requestBody = JSON.stringify(authentificationRequest);
+
+    let requestOptions = new RequestOptions({headers: headers});
+
+    this.http.post(`${serverAddress}${this.serverEndpoint}`, requestBody, requestOptions).toPromise().then(response => this.response=response.json()).catch(this.handleError);
+
+        this.loggedIn = true;
+        let credentials = btoa(`${email}:${password}`);
+         localStorage.setItem('cred', credentials);
+
     this.loggedIn = true;
-    if (password === 'admin') {
-      localStorage.setItem('role', 'admins');
+    if (this.response.role === 'ADMIN') {
+
       this.admin = true;
     }
+        localStorage.setItem('role', this.response.role);
+        localStorage.setItem('id',  this.response.id);
+
+
+
     return Promise.resolve(true);
   }
 
-  private findUserInList(userList: User[], username: string, password: string): User {
-    for (let i = 0, n = userList.length; i < n; i++) {
-      let user = userList[i];
-      if (username === user.login && password === user.password) {
-        return user;
-      }
-    }
-  }
 
   logout() {
     localStorage.removeItem('cred');
@@ -82,5 +82,10 @@ export class AuthenticationService {
     localStorage.removeItem('role');
     this.admin = false;
     this.loggedIn = false;
+  }
+
+  private handleError(error: any): Promise<any> {
+    console.error("Incorrect credentials", error);
+    return Promise.reject(error.message || error);
   }
 }

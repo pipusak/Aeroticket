@@ -1,5 +1,7 @@
 package cz.cvut.fel.aeroticket.model;
 
+import cz.cvut.fel.aeroticket.model.client.Role;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -7,6 +9,11 @@ import java.util.Set;
 
 @Entity
 @Table(name = "CLIENT")
+
+
+@NamedQueries({
+        @NamedQuery(name = "clientByEmail", query = "select client from CLIENT client where client.EMAIL = :email"),
+        })
 public class Client implements Serializable {
 
 /*    @GeneratedValue(generator = "CLIENT_SEQ", strategy = GenerationType.SEQUENCE)
@@ -33,6 +40,9 @@ public class Client implements Serializable {
 
     @Column(name = "PASSWORD", nullable = false)
     private String password;
+
+    @Column(name = "ROLE", nullable = false)
+    private Role role;
 
     @OneToMany(mappedBy = "client",cascade= CascadeType.REMOVE)
     private Set<Reservation> reservations;
@@ -101,4 +111,11 @@ public class Client implements Serializable {
         this.reservations = reservations;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 }

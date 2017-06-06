@@ -1,6 +1,6 @@
 package cz.cvut.fel.aeroticket.dto;
 
-import cz.cvut.fel.aeroticket.reservation.PassengerType;
+import cz.cvut.fel.aeroticket.model.reservation.PassengerType;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;

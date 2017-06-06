@@ -13,21 +13,26 @@
              cellpadding="0" *ngIf="reservations">
         <thead>
         <tr>
-          <th [ngClass]="getSortingClasses('name')" (click)="sort('name')">Name <span class="glyphicon glyphicon-arrow-down"></span><span
+          <th [ngClass]="getSortingClasses('id')" (click)="sort('id')">ID <span class="glyphicon glyphicon-arrow-down"></span><span
             class="glyphicon glyphicon-arrow-up"></span></th>
-          <th [ngClass]="getSortingClasses('to')" (click)="sort('to')">To <span class="glyphicon glyphicon-arrow-down"></span><span
+          <th [ngClass]="getSortingClasses('client')" (click)="sort('client')">Client ID <span class="glyphicon glyphicon-arrow-down"></span><span
             class="glyphicon glyphicon-arrow-up"></span></th>
-
+          <th [ngClass]="getSortingClasses('reservationStatus')" (click)="sort('reservationStatus')">Status <span class="glyphicon glyphicon-arrow-down"></span><span
+            class="glyphicon glyphicon-arrow-up"></span></th>
+          <th [ngClass]="getSortingClasses('price')" (click)="sort('price')">Price <span class="glyphicon glyphicon-arrow-down"></span><span
+            class="glyphicon glyphicon-arrow-up"></span></th>
           <th class="actions"></th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let reservation of reservations">
+          <td>{{reservation.id}}</td>
+          <td>{{reservation.client}}</td>
           <td>{{reservation.reservationStatus}}</td>
-          <td>{{reservation.flight}}</td>
-          <td>{{reservation.numberOfSeats}}</td>
-          <td>{{reservation.created}}</td>
-          <td class="actions text-right">
+          <td>{{reservation.price}}</td>
+          <!--<td>{{reservation.numberOfSeats}}</td>-->
+          <!--<td>{{reservation.created}}</td>-->
+         <td class="actions text-right">
             <a class="btn btn-success btn-xs" [routerLink]="['/reservation', reservation.id]">Details</a>
           </td>
         </tr>

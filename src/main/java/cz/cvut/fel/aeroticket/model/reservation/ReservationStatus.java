@@ -1,4 +1,4 @@
-package cz.cvut.fel.aeroticket.reservation;
+package cz.cvut.fel.aeroticket.model.reservation;
 
 public enum ReservationStatus {
     NEW,

@@ -11,7 +11,7 @@ import {UsersService} from "../users/users.service";
 
 })
 export class AuthenticationComponent implements OnInit {
-  
+
   loginError: string;
   registrationError: string;
 
@@ -23,8 +23,8 @@ export class AuthenticationComponent implements OnInit {
     this.authService.logout();
   }
 
-  onLoginSubmit(username: string, password: string) {
-    this.authService.login(username, password).then(isLoggedIn => {
+  onLoginSubmit(email: string, password: string) {
+    this.authService.login(email, password).then(isLoggedIn => {
       if (isLoggedIn) {
         this.router.navigate(['/']);
       } else {
@@ -34,11 +34,11 @@ export class AuthenticationComponent implements OnInit {
 
   }
 
-  onRegisterSubmit(username: string, fullName: string, email: string, password: string, passwordConfirm: string, dateOfBirth: string) {
+  onRegisterSubmit(  email: string, fullName: string, password: string, passwordConfirm: string, dateOfBirth: string) {
     if (password === passwordConfirm) {
       let parsedName = fullName.split(' ');
       if (parsedName.length === 2) {
-        let newUser = new User(username, email, parsedName[0], parsedName[1], password, dateOfBirth);
+        let newUser = new User( email, parsedName[0], parsedName[1], password, dateOfBirth);
         // Redirect to flights on success or display error message
         this.userService.createUser(newUser).then(user => this.router.navigate(['/flight'])).catch(err => this.loginError = "Internal error");
       } else {

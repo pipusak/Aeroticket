@@ -9,11 +9,10 @@ import cz.cvut.fel.aeroticket.model.Reservation;
 import cz.cvut.fel.aeroticket.repository.ClientRepository;
 import cz.cvut.fel.aeroticket.repository.FlightRepository;
 import cz.cvut.fel.aeroticket.repository.ReservationItemRepository;
-import cz.cvut.fel.aeroticket.reservation.ReservationStatus;
+import cz.cvut.fel.aeroticket.model.reservation.ReservationStatus;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;

@@ -3,7 +3,7 @@ package cz.cvut.fel.aeroticket.validation;
 
 import cz.cvut.fel.aeroticket.dto.ReservationDTO;
 import cz.cvut.fel.aeroticket.dto.ReservationItemDTO;
-import cz.cvut.fel.aeroticket.reservation.ReservationStatus;
+import cz.cvut.fel.aeroticket.model.reservation.ReservationStatus;
 import cz.cvut.fel.aeroticket.service.FlightService;
 import cz.cvut.fel.aeroticket.service.ReservationService;
 import cz.cvut.fel.aeroticket.validation.dto.ValidationResult;

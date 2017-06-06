@@ -9,29 +9,38 @@
   <hr/>
   <div id="list" class="row">
     <div class="table-responsive col-md-12">
-      <table *ngIf="reservations" class="table table-striped table-hover" cellspacing="0"
-             cellpadding="0">
+      <table class="table table-striped table-hover" cellspacing="0"
+             cellpadding="0" *ngIf="reservations" >
         <thead>
         <tr>
           <th>Status</th>
-          <th>Passenger Type</th>
-          <th>Number of Tickets</th>
+          <th>Price</th>
+          <th>Status</th>
           <th>Flight Route</th>
-          <th class="actions"></th>
         </tr>
         </thead>
-        <tbody *ngFor="let reservation of reservations">
-        <tr *ngFor="let reservationItem of reservation">
+        <tbody>
+        <tr *ngFor="let reservation of reservations">
+          <td>{{reservation.id}}</td>
+          <td>{{reservation.price | currency:'EUR':true}}</td>
           <td>{{reservation.reservationStatus}}</td>
-          <td>{{reservationItem.passengerType}}</td>
-          <td>{{reservationItem.numberOfSeats}}</td>
-          <td>{{getFlightRouteString(reservationItem.flight) | async}}</td>
+          <!--<td>{{reservation.reservationItem.passengerType}}</td>-->
+          <!--<td>{{reservation.reservationItem[0].numberOfSeats}}</td>-->
+          <!--<td>{{getFlightRouteString(reservation.reservationItem[0].flight) | async}}</td>-->
           <td class="actions text-right">
             <a *ngIf="reservation.reservationStatus == 'NEW'" class="btn btn-success btn-xs">Pay</a>
             <a *ngIf="reservation.reservationStatus == 'NEW'" class="btn btn-warning btn-xs">Cancel</a>
           </td>
         </tr>
         </tbody>
+        <tfoot>
+        <tr>
+          <td colspan="5">
+            <!-- Pagination -->
+            <pagination [totalPageCount]="totalPageCount" (changeActivePage)="onChangeActivePage($event)"></pagination>
+          </td>
+        </tr>
+        </tfoot>
       </table>
 
     </div>

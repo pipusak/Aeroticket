@@ -20,12 +20,21 @@ public class ClientDTO {
     private String email;
 
     @NotNull
+    @Size(min = 3)
+    private String password;
+
+    @NotNull
     @Size(min = 1)
     private String firstName;
 
     @NotNull
     @Size(min = 1)
     private String lastName;
+
+
+
+    @NotNull
+    private String role;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @ApiModelProperty(dataType = "java.lang.String", example = "yyyy-MM-dd")
@@ -71,4 +80,19 @@ public class ClientDTO {
         this.dateOfBirth = dateOfBirth;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 }

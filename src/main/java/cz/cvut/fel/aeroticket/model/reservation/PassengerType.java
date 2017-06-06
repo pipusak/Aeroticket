@@ -1,4 +1,4 @@
-package cz.cvut.fel.aeroticket.reservation;
+package cz.cvut.fel.aeroticket.model.reservation;
 
 public enum PassengerType {
     BABY(0, 2, false, false, 1F),

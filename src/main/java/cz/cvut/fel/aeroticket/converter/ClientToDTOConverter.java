@@ -21,6 +21,8 @@ public class ClientToDTOConverter implements Converter<Client, ClientDTO> {
         instance.setLastName(source.getLastName());
         instance.setId(source.getId());
         instance.setEmail(source.getEmail());
+        instance.setPassword(source.getPassword());
+        instance.setRole(source.getRole().toString());
         return instance;
     }
 

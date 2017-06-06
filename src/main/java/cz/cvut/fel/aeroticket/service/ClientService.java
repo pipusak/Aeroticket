@@ -4,4 +4,6 @@ import cz.cvut.fel.aeroticket.dto.ClientDTO;
 import cz.cvut.fel.aeroticket.model.Client;
 
 public interface ClientService extends EntityService<Client, ClientDTO> {
+
+    ClientDTO getClientByEmail(String email);
 }

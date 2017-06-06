@@ -11,9 +11,18 @@ import {DestinationService} from "../destination/destination.service";
 })
 export class MyReservationsComponent implements OnInit {
 
-  private reservations: Reservation[];
+  reservations: Reservation[];
 
   totalPageCount: number;
+
+
+   request = {
+  sorting: {
+    fieldName: 'id',
+    direction: SortDirection.Asc
+  },
+  pageNumber: 0
+};
 
   constructor(private reservationService: ReservationsService, private authService: AuthenticationService,
               private flightService: FlightService, private destinationService: DestinationService) {
@@ -21,24 +30,22 @@ export class MyReservationsComponent implements OnInit {
 
 
   ngOnInit() {
-    this.updateReservationsList();
+    this.updateReservations();
   }
 
-  private updateReservationsList() {
+  private updateReservations() {
 
     let userId = this.authService.getUserId();
-    let reservationRequest = {
-      sorting: {
-        fieldName: 'id',
-        direction: SortDirection.Asc
-      },
-      pageNumber: 0
-    };
+    this.request.sorting.fieldName= 'userId';
 
 
-    this.reservationService.getReservationsList(reservationRequest).then(response => {
-      this.reservations=response.reservations;
-    });
+
+      this.reservationService.getReservationsList(this.request).then(response => {
+        this.totalPageCount=response.pageCount;
+        this.reservations = response.reservations;
+
+      });
+
   }
 
 
@@ -50,5 +57,48 @@ export class MyReservationsComponent implements OnInit {
       let destFrom = this.destinationService.getDestination(<number> flight.from).then(destination => destination.name);
       return `${destFrom} - ${destTo}`
     });
+  }
+
+  private setSorting(sortBy: string) {
+    if (sortBy === this.request.sorting.fieldName) {
+      this.request.sorting.direction === SortDirection.Asc ? this.request.sorting.direction = SortDirection.Desc
+        : this.request.sorting.direction = SortDirection.Asc;
+    } else {
+      this.request.sorting.fieldName = sortBy;
+      this.request.sorting.direction = SortDirection.Asc;
+    }
+  }
+
+  onChangeActivePage(activePage: number) {
+    this.setActivePage(activePage);
+    this.updateReservations();
+  }
+
+  private setActivePage(activePage: number) {
+    this.request.pageNumber = activePage;
+  }
+
+  getSortingClasses(elementName: string) {
+    let classes = {
+      'sort-desc': false,
+      'sort-asc': false
+    };
+
+    if (this.isClassActive(elementName)) {
+      if (this.getSortDirection() === 1) {
+        classes['sort-asc'] = true;
+      } else {
+        classes['sort-desc'] = true;
+      }
+    }
+    return classes;
+  }
+
+  private isClassActive(elementName: string) {
+    return this.request.sorting.fieldName === elementName;
+  }
+
+  private getSortDirection() {
+    return this.request.sorting.direction;
   }
 }

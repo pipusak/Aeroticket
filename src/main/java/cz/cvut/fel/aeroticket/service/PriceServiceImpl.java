@@ -3,7 +3,7 @@ package cz.cvut.fel.aeroticket.service;
 import cz.cvut.fel.aeroticket.model.Destination;
 import cz.cvut.fel.aeroticket.model.Reservation;
 import cz.cvut.fel.aeroticket.model.ReservationItem;
-import cz.cvut.fel.aeroticket.reservation.PassengerType;
+import cz.cvut.fel.aeroticket.model.reservation.PassengerType;
 
 import javax.ejb.Stateless;
 import java.math.BigDecimal;

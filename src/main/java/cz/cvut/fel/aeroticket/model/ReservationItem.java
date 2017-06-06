@@ -1,6 +1,6 @@
 package cz.cvut.fel.aeroticket.model;
 
-import cz.cvut.fel.aeroticket.reservation.PassengerType;
+import cz.cvut.fel.aeroticket.model.reservation.PassengerType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
