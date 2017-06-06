@@ -13,9 +13,9 @@
                  [(ngModel)]="flight.name"/>
         </div>
         <div class="form-group col-md-4">
-          <label for="flight-seats-form">Total number of seats</label>
-          <input type="number" class="form-control" name="numberOfSeats" id="flight-seats-form" min="1" max="999"
-                 required [(ngModel)]="flight.numberOfSeats"/>
+          <label for="flight-seats-form">Number of available seats</label>
+          <input type="number" class="form-control" name="numberOfSeats" id="flight-seats-form" min="0" max="999"
+                 disabled [(ngModel)]="flight.numberOfSeats"/>
         </div>
         <div class="form-group col-md-4">
           <label for="flight-price-form">Total price (in $)</label>

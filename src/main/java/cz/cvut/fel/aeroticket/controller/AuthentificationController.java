@@ -14,7 +14,7 @@ import javax.ws.rs.core.Response;
  * Created by TomasNovotny on 6.6.2017.
  */
 
-@Path("/authentification")
+@Path("/login")
 @Api("Authentification Controller")
 @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -25,7 +25,7 @@ public class AuthentificationController {
     private ClientService clientService;
 
 
-    @GET
+    @POST
     public Response authentificate(AuthentificationDTO authentification) {
 
         ClientDTO client = clientService.getClientByEmail(authentification.getEmail());

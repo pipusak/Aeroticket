@@ -1,1 +1,1 @@
-export type ReservationStatus = 'NEW' | 'PAID' | 'CANCELED';
+export type ReservationStatus = 'NEW' | 'PAID' | 'CANCELLED';

@@ -12,7 +12,7 @@ public class ReservationItemDTO {
     @NotNull
     private PassengerType passengerType;
 
-    @NotNull
+    @NotNull (message = "Must order at least one ticket")
     @Min(1)
     private Integer numberOfTickets;
 

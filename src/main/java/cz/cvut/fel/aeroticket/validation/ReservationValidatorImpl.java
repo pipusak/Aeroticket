@@ -31,10 +31,12 @@ public class ReservationValidatorImpl implements ReservationValidator {
         }
 
         if (!isEnoughSeatsAvailable(reservationDTO, false)) {
+            System.out.println("Not enough seats available");
             return ValidationResult.failed("Not enough seats available");
         }
 
         if (reservationDTO.getReservationStatus() != null && !ReservationStatus.NEW.equals(reservationDTO.getReservationStatus())) {
+            System.out.println("Reservation status incorrect");
             return ValidationResult.failed("Reservation status incorrect");
         }
 
@@ -47,18 +49,20 @@ public class ReservationValidatorImpl implements ReservationValidator {
         if (!commonValidationResult.isValid()) {
             return commonValidationResult;
         }
-
         if (!isEnoughSeatsAvailable(reservationDTO, true)) {
+            System.out.println("Not enough seats available");
             return ValidationResult.failed("Not enough seats available");
         }
 
+
         return ValidationResult.succeed();
+
     }
 
-    @Override
+/*    @Override
     public ValidationResult canBeDeleted(ReservationDTO reservationDTO) {
         return ValidationResult.succeed();
-    }
+    }*/
 
     private ValidationResult commonValidation(ReservationDTO reservationDTO) {
         if (reservationDTO.getReservationItems().size() == 0) {
@@ -92,7 +96,7 @@ public class ReservationValidatorImpl implements ReservationValidator {
         if (isUpdate) {
             currentReservationCount = reservationService.getAvailableSeatsCount(flightId, reservationId);
         }
-        return (flightService.getAvailableSeatsCount(flightId) - numberOfSeats) >= currentReservationCount;
+        return (flightService.getAvailableSeatsCount(flightId) ) >= numberOfSeats-currentReservationCount;
     }
 
     private boolean adultsAreFlying(Set<ReservationItemDTO> items) {

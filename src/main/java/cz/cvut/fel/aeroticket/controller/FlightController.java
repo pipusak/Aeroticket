@@ -32,6 +32,7 @@ public class FlightController {
                 .order(order)
                 .orderBy(orderBy)
                 .build());
+
         return Response.ok(result).build();
     }
 

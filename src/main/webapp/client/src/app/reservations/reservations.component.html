@@ -1,3 +1,4 @@
+<confirm-delete [targetItemId]="selectedReservationtId" (deleteRequest)="onDeleteRequest($event)"></confirm-delete>
 <div id="main" class="container">
 
   <div id="top" class="row">
@@ -26,6 +27,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let reservation of reservations">
+
           <td>{{reservation.id}}</td>
           <td>{{reservation.client}}</td>
           <td>{{reservation.reservationStatus}}</td>
@@ -34,7 +36,12 @@
           <!--<td>{{reservation.created}}</td>-->
          <td class="actions text-right">
             <a class="btn btn-success btn-xs" [routerLink]="['/reservation', reservation.id]">Details</a>
-          </td>
+         </td>
+          <td>
+           <a *ngIf="isUserAdmin()" class="btn btn-danger btn-xs"
+              data-toggle="modal"
+              data-target="#delete-modal" (click)="selectReservation(reservation.id)">Delete</a>
+         </td>
         </tr>
         </tbody>
         <tfoot>

@@ -36,9 +36,8 @@ public class ClientDTO {
     @NotNull
     private String role;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    @ApiModelProperty(dataType = "java.lang.String", example = "yyyy-MM-dd")
-    private LocalDate dateOfBirth;
+
+    private String dateOfBirth;
 
     public Long getId() {
         return id;
@@ -72,11 +71,11 @@ public class ClientDTO {
         this.lastName = lastName;
     }
 
-    public LocalDate getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

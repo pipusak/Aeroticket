@@ -2,11 +2,16 @@ package cz.cvut.fel.aeroticket.converter;
 
 import cz.cvut.fel.aeroticket.dto.FlightDTO;
 import cz.cvut.fel.aeroticket.model.Flight;
+import cz.cvut.fel.aeroticket.service.FlightService;
 
 import javax.ejb.Singleton;
+import javax.inject.Inject;
 
 @Singleton
 public class FlightToDTOConverter implements Converter<Flight, FlightDTO> {
+
+    @Inject
+    private FlightService flightService;
 
     @Override
     public FlightDTO convert(Flight source) {
@@ -19,7 +24,7 @@ public class FlightToDTOConverter implements Converter<Flight, FlightDTO> {
         instance.setId(source.getId());
         instance.setName(source.getName());
         instance.setDistance(source.getDistance().doubleValue());
-        instance.setNumberOfSeats(source.getNumberOfSeats());
+        instance.setNumberOfSeats(flightService.getAvailableSeatsCount(source.getId()));
         instance.setFrom(source.getFrom().getId());
         instance.setTo(source.getTo().getId());
         instance.setDateOfDeparture(source.getDateOfDeparture());

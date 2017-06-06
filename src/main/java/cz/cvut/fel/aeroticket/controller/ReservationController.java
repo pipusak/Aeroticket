@@ -54,8 +54,12 @@ public class ReservationController {
     @PUT
     @Path("/{id}")
     public Response updateReservation(@PathParam("id") Long id, @Valid @ReservationCanBeUpdated ReservationDTO reservationDTO) {
-        ReservationDTO result = reservationService.update(id, reservationDTO);
-        return Response.ok(result).build();
+
+            ReservationDTO result = reservationService.update(id, reservationDTO);
+            return Response.ok(result).build();
+
+
+
     }
 
     @DELETE

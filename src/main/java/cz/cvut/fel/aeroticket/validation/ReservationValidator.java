@@ -10,6 +10,6 @@ public interface ReservationValidator {
 
     ValidationResult canBeUpdated(ReservationDTO reservationDTO);
 
-    ValidationResult canBeDeleted(ReservationDTO reservationDTO);
+//    ValidationResult canBeDeleted(ReservationDTO reservationDTO);
 
 }

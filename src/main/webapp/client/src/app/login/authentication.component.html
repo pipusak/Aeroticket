@@ -14,7 +14,7 @@
             <div class="col-lg-12">
               <div class="tab-content">
                 <div id="login" class="tab-pane fade in active">
-                  <form (ngSubmit)="onLoginSubmit(loginUsername.value, loginPassword.value)" id="login-form"
+                  <form (ngSubmit)="onLoginSubmit(loginUsername.value, loginPassword.value)"
                         method="post" role="form">
                     <div class="form-group">
                       <input type="text" name="username" tabindex="1" class="form-control"
@@ -44,7 +44,7 @@
 
                 <div id="register" class="tab-pane fade">
                   <form
-                    (ngSubmit)="onRegisterSubmit(registerUsername.value, registerFullName.value, registerEmail.value, registerPassword.value, registerConfirmPassword.value, registerBirthday.value)"
+                    (ngSubmit)="onRegisterSubmit(registerEmail.value, registerFullName.value,  registerPassword.value, registerConfirmPassword.value, registerBirthday.value)"
                     id="register-form" method="post" role="form">
                     <div class="form-group">
                       <input type="email" name="email" tabindex="4" class="form-control"

@@ -7,13 +7,13 @@ import {serverAddress} from "../constants/server-address";
 
 @Injectable()
 export class AuthenticationService {
-  // TODO: test this
+
   private loggedIn = false;
   private admin = false;
-  private serverEndpoint = '/authentification';
+  private serverEndpoint = '/login';
   private role = "NONE";
   private id;
-  private response;
+
 
 
   constructor(private http: Http, private userService: UsersService) {
@@ -43,9 +43,34 @@ export class AuthenticationService {
     return +localStorage.getItem('id');
   }
 
-  login(email: string, password: string): Promise<boolean> {
+  login(email: string, password: string, ): Promise<boolean> {
+
+    return this.getAuthentifivation(email,password).then(response=>this.fillVars(response)).catch(this.handleError);
+  }
+
+  fillVars( authentificationObject ):Promise<boolean>{
+    console.log("FILL Vars")
+    this.loggedIn = true;
+    let credentials = btoa("fakecred");
+    localStorage.setItem('cred', credentials);
+
+    this.loggedIn = true;
+    if (authentificationObject.role === 'ADMIN') {
+
+      this.admin = true;
+    }
+    localStorage.setItem('role', authentificationObject.role);
+    localStorage.setItem('id',  authentificationObject.id);
+
+  return Promise.resolve(true);
+  }
 
 
+
+
+
+  getAuthentifivation(email: string, password: string, delay: number = 500){
+    console.log("Start login");
     let headers = HeadersBuilder.newBuilder().build();
 
     let authentificationRequest = {
@@ -56,25 +81,10 @@ export class AuthenticationService {
 
     let requestOptions = new RequestOptions({headers: headers});
 
-    this.http.post(`${serverAddress}${this.serverEndpoint}`, requestBody, requestOptions).toPromise().then(response => this.response=response.json()).catch(this.handleError);
+    var requestUrl = "" + serverAddress + this.serverEndpoint;
+   return this.http.post(requestUrl, requestBody, requestOptions).delay(delay).toPromise().then(response => response.json()).catch(this.handleError);
 
-        this.loggedIn = true;
-        let credentials = btoa(`${email}:${password}`);
-         localStorage.setItem('cred', credentials);
-
-    this.loggedIn = true;
-    if (this.response.role === 'ADMIN') {
-
-      this.admin = true;
-    }
-        localStorage.setItem('role', this.response.role);
-        localStorage.setItem('id',  this.response.id);
-
-
-
-    return Promise.resolve(true);
   }
-
 
   logout() {
     localStorage.removeItem('cred');

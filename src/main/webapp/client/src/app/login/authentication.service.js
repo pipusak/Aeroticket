@@ -7,16 +7,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var http_1 = require("@angular/http");
+var headers_builder_1 = require("../utils/headers-builder");
+var server_address_1 = require("../constants/server-address");
 var AuthenticationService = (function () {
     function AuthenticationService(http, userService) {
         this.http = http;
         this.userService = userService;
-        // TODO: test this
         this.loggedIn = false;
         this.admin = false;
+        this.serverEndpoint = '/login';
+        this.role = "NONE";
         if (localStorage.getItem('cred')) {
             this.loggedIn = true;
-            if (localStorage.getItem('role') === 'admins') {
+            if (localStorage.getItem('role') === 'ADMIN') {
                 this.admin = true;
             }
         }
@@ -34,43 +38,35 @@ var AuthenticationService = (function () {
     AuthenticationService.prototype.getUserId = function () {
         return +localStorage.getItem('id');
     };
-    AuthenticationService.prototype.login = function (username, password) {
-        // let loginSuccessfull: Promise<boolean> = this.userService.getUsersList().then(userList => {
-        //   let user = this.findUserInList(userList, username, password);
-        //   if (user) {
-        //     this.loggedIn = true;
-        //     let credentials = btoa(`${username}:${password}`);
-        //     localStorage.setItem('cred', credentials);
-        //
-        //     this.admin = user.role === 'admins';
-        //     localStorage.setItem('role', user.role);
-        //     localStorage.setItem('id', user.id);
-        //
-        //     return true;
-        //   }
-        //
-        //   return false;
-        // }).catch(err => {
-        //   return false;
-        // });
-        //
-        // return loginSuccessfull;
-        localStorage.setItem('cred', 'asd');
-        localStorage.setItem('id', '1');
+    AuthenticationService.prototype.login = function (email, password) {
+        var _this = this;
+        return this.getAuthentifivation(email, password).then(function (response) { return _this.fillVars(response); }).catch(this.handleError);
+    };
+    AuthenticationService.prototype.fillVars = function (authentificationObject) {
+        console.log("FILL Vars");
         this.loggedIn = true;
-        if (password === 'admin') {
-            localStorage.setItem('role', 'admins');
+        var credentials = btoa("fakecred");
+        localStorage.setItem('cred', credentials);
+        this.loggedIn = true;
+        if (authentificationObject.role === 'ADMIN') {
             this.admin = true;
         }
+        localStorage.setItem('role', authentificationObject.role);
+        localStorage.setItem('id', authentificationObject.id);
         return Promise.resolve(true);
     };
-    AuthenticationService.prototype.findUserInList = function (userList, username, password) {
-        for (var i = 0, n = userList.length; i < n; i++) {
-            var user = userList[i];
-            if (username === user.login && password === user.password) {
-                return user;
-            }
-        }
+    AuthenticationService.prototype.getAuthentifivation = function (email, password, delay) {
+        if (delay === void 0) { delay = 500; }
+        console.log("Start login");
+        var headers = headers_builder_1.HeadersBuilder.newBuilder().build();
+        var authentificationRequest = {
+            email: email,
+            password: password
+        };
+        var requestBody = JSON.stringify(authentificationRequest);
+        var requestOptions = new http_1.RequestOptions({ headers: headers });
+        var requestUrl = "" + server_address_1.serverAddress + this.serverEndpoint;
+        return this.http.post(requestUrl, requestBody, requestOptions).delay(delay).toPromise().then(function (response) { return response.json(); }).catch(this.handleError);
     };
     AuthenticationService.prototype.logout = function () {
         localStorage.removeItem('cred');
@@ -78,6 +74,10 @@ var AuthenticationService = (function () {
         localStorage.removeItem('role');
         this.admin = false;
         this.loggedIn = false;
+    };
+    AuthenticationService.prototype.handleError = function (error) {
+        console.error("Incorrect credentials", error);
+        return Promise.reject(error.message || error);
     };
     return AuthenticationService;
 }());

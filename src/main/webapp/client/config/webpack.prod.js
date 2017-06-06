@@ -24,9 +24,11 @@ const V8LazyParseWebpackPlugin = require('v8-lazy-parse-webpack-plugin');
 const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 const HOST = process.env.HOST || 'localhost';
 const PORT = process.env.PORT || 8080;
+const PATH = process.env.path || '/AeroTicket';
 const METADATA = webpackMerge(commonConfig({env: ENV}).metadata, {
   host: HOST,
   port: PORT,
+  path: PATH,
   ENV: ENV,
   HMR: false
 });
@@ -123,7 +125,7 @@ module.exports = function (env) {
 
       /**
        * Plugin: ExtractTextPlugin
-       * Description: Extracts imported CSS files into external stylesheet 
+       * Description: Extracts imported CSS files into external stylesheet
        *
        * See: https://github.com/webpack/extract-text-webpack-plugin
        */

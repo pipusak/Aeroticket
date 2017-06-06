@@ -11,6 +11,8 @@ import cz.cvut.fel.aeroticket.validation.groups.ValidateOnUpdate;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.print.attribute.standard.Severity;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -29,6 +31,7 @@ public class ReservationDTO {
 
     private Long id;
 
+    @NotNull(message = "Client ID is mandatory")
     private Long client;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ")

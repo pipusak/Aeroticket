@@ -5,6 +5,8 @@ import cz.cvut.fel.aeroticket.model.Client;
 import cz.cvut.fel.aeroticket.model.client.Role;
 
 import javax.ejb.Singleton;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Singleton
 public class ClientDTOToModelConverter implements Converter<ClientDTO, Client> {
@@ -21,7 +23,9 @@ public class ClientDTOToModelConverter implements Converter<ClientDTO, Client> {
         instance.setPassword(source.getPassword());
         instance.setFirstName(source.getFirstName());
         instance.setLastName(source.getLastName());
-        instance.setDateOfBirth(source.getDateOfBirth());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
+        instance.setDateOfBirth(LocalDate.parse(source.getDateOfBirth() ,formatter));
         instance.setRole(Role.valueOf(source.getRole()));
         return instance;
     }

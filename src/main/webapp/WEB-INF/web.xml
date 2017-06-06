@@ -2,7 +2,7 @@
 
 
     <welcome-file-list>
-        <welcome-file>AeroTicket/client/src/index.html</welcome-file>
+        <welcome-file>AeroTicket/index.html</welcome-file>
     </welcome-file-list>
 
 

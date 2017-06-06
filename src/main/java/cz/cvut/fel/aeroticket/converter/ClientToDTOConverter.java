@@ -16,7 +16,7 @@ public class ClientToDTOConverter implements Converter<Client, ClientDTO> {
 
     @Override
     public ClientDTO convert(Client source, ClientDTO instance) {
-        instance.setDateOfBirth(source.getDateOfBirth());
+        instance.setDateOfBirth(source.getDateOfBirth().toString());
         instance.setFirstName(source.getFirstName());
         instance.setLastName(source.getLastName());
         instance.setId(source.getId());

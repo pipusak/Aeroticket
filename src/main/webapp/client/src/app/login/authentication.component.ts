@@ -30,22 +30,23 @@ export class AuthenticationComponent implements OnInit {
       } else {
         this.loginError = "Incorrect username or password.";
       }
-    });
+    }).catch( reject =>this.loginError = "Incorrect username or password.");
 
   }
 
   onRegisterSubmit(  email: string, fullName: string, password: string, passwordConfirm: string, dateOfBirth: string) {
+    console.log("CALL on Register")
     if (password === passwordConfirm) {
       let parsedName = fullName.split(' ');
       if (parsedName.length === 2) {
         let newUser = new User( email, parsedName[0], parsedName[1], password, dateOfBirth);
         // Redirect to flights on success or display error message
-        this.userService.createUser(newUser).then(user => this.router.navigate(['/flight'])).catch(err => this.loginError = "Internal error");
+        this.userService.createUser(newUser).then(user => this.router.navigate(['/login'])).catch(err => this.loginError = "Internal error");
       } else {
-        this.loginError = "Your full name is probably incorrect.";
+        this.registrationError = "Invalid infromations";
       }
     } else {
-      this.loginError = "Password doesn't match.";
+      this.registrationError = "Password doesn't match.";
     }
   }
 }

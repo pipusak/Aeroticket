@@ -28,8 +28,8 @@
           <!--<td>{{reservation.reservationItem[0].numberOfSeats}}</td>-->
           <!--<td>{{getFlightRouteString(reservation.reservationItem[0].flight) | async}}</td>-->
           <td class="actions text-right">
-            <a *ngIf="reservation.reservationStatus == 'NEW'" class="btn btn-success btn-xs">Pay</a>
-            <a *ngIf="reservation.reservationStatus == 'NEW'" class="btn btn-warning btn-xs">Cancel</a>
+            <a *ngIf="reservation.reservationStatus == 'NEW'" class="btn btn-success btn-xs" data-toggle="modal" data-target="#pay-modal"(click)="onPayRequest(reservation.id)">Pay</a>
+            <a *ngIf="reservation.reservationStatus == 'NEW'" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#cancel-modal"(click)="onCancelRequest(reservation.id)">Cancel</a>
           </td>
         </tr>
         </tbody>

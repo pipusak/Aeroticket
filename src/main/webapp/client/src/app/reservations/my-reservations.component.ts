@@ -101,4 +101,34 @@ export class MyReservationsComponent implements OnInit {
   private getSortDirection() {
     return this.request.sorting.direction;
   }
+
+  onCancelRequest(targetReservationId: number) {
+    this.reservationService.getReservation(targetReservationId).then(reservation =>{
+      reservation.reservationStatus='CANCELLED';
+      this.reservationService.updateReservation(targetReservationId,reservation);
+
+    })
+
+    // Wait 250 ms until list update, to be sure, that the operation done after delete request complete
+    setTimeout(() => {
+      this.updateReservations()
+    }, 250);
+  }
+
+  onPayRequest(targetReservationId: number) {
+    this.reservationService.getReservation(targetReservationId).then(reservation =>{
+      reservation.reservationStatus='PAID';
+      this.reservationService.updateReservation(targetReservationId,reservation);
+
+    })
+
+    // Wait 250 ms until list update, to be sure, that the operation done after delete request complete
+    setTimeout(() => {
+      this.updateReservations()
+    }, 250);
+    // Wait 250 ms until list update, to be sure, that the operation done after delete request complete
+    setTimeout(() => {
+      this.updateReservations()
+    }, 250);
+  }
 }

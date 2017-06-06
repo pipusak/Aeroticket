@@ -49,6 +49,7 @@ public class AeroTicketApplication extends Application {
         listOfResources.add(resourcesBase+"/ping");
         listOfResources.add(resourcesBase+"/ping");
         listOfResources.add(resourcesBase+"/banner");
+        listOfResources.add(resourcesBase+"/login");
 
     }
 
@@ -59,6 +60,7 @@ public class AeroTicketApplication extends Application {
         resources.add(cz.cvut.fel.aeroticket.controller.PingController.class);
         resources.add(cz.cvut.fel.aeroticket.controller.ReservationController.class);
         resources.add(cz.cvut.fel.aeroticket.banner.BannerController.class);
+        resources.add(cz.cvut.fel.aeroticket.controller.AuthentificationController.class);
     }
 }
 class ListOfResources {

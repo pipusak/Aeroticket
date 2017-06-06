@@ -7,12 +7,13 @@ import {ReservationsComponent} from "./reservations.component";
 import {AuthenticationGuard} from "../login/authentication.guard";
 import {ReserveFlightComponent} from "./reserve-flight.component";
 import {MyReservationsComponent} from "./my-reservations.component";
+import {createReservationComponent} from "./create-reservation.component";
 @NgModule({
   imports: [SharedModule,
     RouterModule.forChild([
       {
         path: 'reservations',
-        component: ReservationsComponent,
+        component: createReservationComponent,
         canActivate: [AuthenticationAdminGuard]
       },
       {

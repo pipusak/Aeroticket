@@ -8,11 +8,12 @@ import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
-@Table(name = "CLIENT")
-
+@Table(name = "CLIENT", indexes = {
+@Index(columnList = "EMAIL")
+})
 
 @NamedQueries({
-        @NamedQuery(name = "clientByEmail", query = "select client from CLIENT client where client.EMAIL = :email"),
+        @NamedQuery(name = "clientByEmail", query = "select client from Client client where client.email = :email"),
         })
 public class Client implements Serializable {
 
@@ -41,6 +42,7 @@ public class Client implements Serializable {
     @Column(name = "PASSWORD", nullable = false)
     private String password;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "ROLE", nullable = false)
     private Role role;
 

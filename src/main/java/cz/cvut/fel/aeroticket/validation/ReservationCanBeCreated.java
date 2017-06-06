@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = ReservationCanBeCreatedImpl.class)
 public @interface ReservationCanBeCreated {
 
-    String message() default "";
+    String message() default "Error on create";
 
     Class<?>[] groups() default {};
 

@@ -1,1 +1,1 @@
-export type UserRoles = 'admins' | 'guest';
+export type UserRoles = 'ADMIN' | 'USER';

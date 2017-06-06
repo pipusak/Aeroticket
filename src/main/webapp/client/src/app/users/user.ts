@@ -15,6 +15,6 @@ export class User {
     this.dateOfBirth = dateOfBirth;
     this.password = password;
 
-    this.role = 'guest';
+    this.role = 'USER';
   }
 }

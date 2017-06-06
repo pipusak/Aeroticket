@@ -4,6 +4,7 @@ import {ReservationsService} from "./reservations.service";
 import {FlightService} from "../flights/flights.service";
 import {ListRequest} from "../model/list-request";
 import {SortDirection} from "../model/sort-direction";
+import {AuthenticationService} from "../login/authentication.service";
 @Component({
   selector: 'reservations',
   templateUrl: 'reservations.component.html'
@@ -11,7 +12,7 @@ import {SortDirection} from "../model/sort-direction";
 export class ReservationsComponent implements OnInit {
 
   reservations: Reservation[];
-
+  selectedReservationtId: number;
   totalPageCount: number;
 
   private request: ListRequest = {
@@ -22,7 +23,7 @@ export class ReservationsComponent implements OnInit {
     pageNumber: 0
   };
 
-  constructor(private reservationService: ReservationsService) {
+  constructor(private reservationService: ReservationsService, private authService: AuthenticationService) {
   }
 
   ngOnInit(): void {
@@ -75,12 +76,30 @@ export class ReservationsComponent implements OnInit {
     }
     return classes;
   }
-
+  selectReservation(id: number) {
+    this.selectedReservationtId = id;
+  }
   private isClassActive(elementName: string) {
     return this.request.sorting.fieldName === elementName;
   }
 
   private getSortDirection() {
     return this.request.sorting.direction;
+  }
+
+  onDeleteRequest(targetReservationId: number) {
+    this.reservationService.deleteReservation(targetReservationId);
+    // Wait 250 ms until list update, to be sure, that the operation done after delete request complete
+    setTimeout(() => {
+      this.updateReservations()
+    }, 250);
+  }
+
+  isUserAdmin(): boolean {
+    return this.authService.isAdmin();
+  }
+
+  isUserLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
   }
 }
